@@ -27,7 +27,7 @@
     </OnOpen>
     <OnRun>
       <SaveMissionPlan>false</SaveMissionPlan>
-      <HideWarningMessages>true</HideWarningMessages>
+      <HideWarningMessages>false</HideWarningMessages>
     </OnRun>
   </ProjectPreferences>
   <ProjectDataFiles>
@@ -266,7 +266,7 @@
           <SpiceEphemeris name="Phobos_SpiceEphem" isConstant="false" isGlobal="false">
             <Name>Phobos_SpiceEphem</Name>
             <SpiceFiles dim="1">
-              <value>C:\Users\adzheng\Documents\FreeFlyer\AERO 423 Interplanetary Project\mar099.bsp</value>
+              <value>C:\FreeFlyer\mar099.bsp</value>
             </SpiceFiles>
             <TargetDefinitionType>UseTargetName</TargetDefinitionType>
             <ObserverDefinitionType>UseObserverName</ObserverDefinitionType>
@@ -351,7 +351,7 @@
           <SpiceEphemeris name="Deimos_SpiceEphem" isConstant="false" isGlobal="false">
             <Name>Deimos_SpiceEphem</Name>
             <SpiceFiles dim="1">
-              <value>C:\Users\adzheng\Documents\FreeFlyer\AERO 423 Interplanetary Project\mar099.bsp</value>
+              <value>C:\FreeFlyer\mar099.bsp</value>
             </SpiceFiles>
             <TargetDefinitionType>UseTargetName</TargetDefinitionType>
             <ObserverDefinitionType>UseObserverName</ObserverDefinitionType>
@@ -2459,7 +2459,7 @@
         <Bookmarks />
         <Breakpoints />
         <FreeFormScript><![CDATA[// Set start date for the November 24, 2026 launch window
-TimeSpan start_date = "Nov 24 2026 00:00:00.000".ParseCalendarDate();
+TimeSpan start_date = "Apr 17 2033 00:00:00.000".ParseCalendarDate();
 Spacecraft1.Epoch = start_date;
 
 Mercury.Globe.SurfaceLayer.DaytimeImageFilename = "./Textures/2k_mercury.jpg";
@@ -2543,6 +2543,12 @@ While (Spacecraft1.Radius <= EarthSOI);
 	Update ViewWindow3;
 End;
 ]]></FreeFormScript>
+      </FreeForm>
+      <FreeForm enabled="true">
+        <Label>Recursive targeting</Label>
+        <Bookmarks />
+        <Breakpoints />
+        <FreeFormScript><![CDATA[]]></FreeFormScript>
       </FreeForm>
       <FreeForm enabled="true">
         <Label>LambertTargetingProcedures</Label>
@@ -2650,6 +2656,7 @@ Array arrivalPos[3];
 Array cross12[3];
 Array vDepart[3];
 Array vArrival[3];
+Array deltaV_lambert_Earth;
 
 Variable theta;
 Variable yOut;
@@ -2660,21 +2667,27 @@ Variable n = 0;
 Variable ratio = 1;
 Variable nMax = 5000;///Maximum number of iterations allowed
 Variable tol = 1e-9;///Tolerance used for when solving using Newton's algorithm
+Variable gain;
 
 Variable f;
 Variable g;
-Variable gdot;]]></FreeFormScript>
+Variable gdot;
+
+Array delta_r = {0.0, 0.0, 0.0};
+Variable delta_r_mag = 100000;
+
+TimeSpan currentEpoch;]]></FreeFormScript>
       </FreeForm>
       <FreeForm enabled="true">
         <Label>LambertTargetingSolution</Label>
         <Bookmarks />
         <Breakpoints />
         <FreeFormScript><![CDATA[// Solve Lambert's Problem
-TimeSpan DepartTime = Spacecraft1.Epoch;
-Variable TOF = 240 - (DepartTime - start_date).ToDays();
 
-// Convert from days to seconds
-TOF *= 86400;
+TimeSpan DepartTime = Spacecraft1.Epoch;
+Variable TOF = 199 - (DepartTime - start_date).ToDays();
+
+
 Spacecraft1.CentralBody = "Sun";
 //Spacecraft1.Epoch = DepartTime.ParseCalendarDate();
 
@@ -2683,110 +2696,171 @@ departurePos = Spacecraft1.Position;
 departureVel = Spacecraft1.Velocity;
 
 // Fast-forward time to Mars arrival time
-Spacecraft1.Epoch += TimeSpan.FromSeconds(TOF);
+Spacecraft1.Epoch += TimeSpan.FromSeconds(TOF*86400);
 
 // Get Mars position in the future, and target a point on its near side
 arrivalPos = Spacecraft1.PlanetPosition(Mars.BodyID);
-Array sunToMarsUnitVector = arrivalPos.Normalized();
-arrivalPos += -10000 * sunToMarsUnitVector;  // 10000 km from Mars on the Sun side
+//Array sunToMarsUnitVector = arrivalPos.Normalized();
+//arrivalPos += -5000000 * sunToMarsUnitVector;  // 10000 km from Mars on the Sun side
+Report @"arrivalPos: \n  ", arrivalPos to Console;
 
 // Reset time
-Spacecraft1.Epoch -= TimeSpan.FromSeconds(TOF);
+Spacecraft1.Epoch -= TimeSpan.FromSeconds(TOF*86400);
+	
+Variable i = 0;
 
-// Call Lambert algorithm
-// Magnitudes of position vectors
-varR1 = departurePos.Norm();
-varR2 = arrivalPos.Norm();
+// Recursively run Lambert targeting until the miss distance is less than 300 km
+While (delta_r_mag > 300);
+	
+	i += 1;
+	Report "RUN #", i to Console;
+	//Report "departurePos = ", Spacecraft1.Position to Console;
+	//Report "departureVel = ", Spacecraft1.Velocity to Console;
+	//Report "DepartTime = ", Spacecraft1.Epoch to Console;
+	
+	Spacecraft1.CentralBody = "Sun";
+	TOF *= 86400;
+	
+	gain = 0.7;
+	arrivalPos -= gain * delta_r;
+	//Report @"arrivalPos: \n  ", arrivalPos to Console;
 
-// Calculate cross product to determine orbit direction and calculate transfer angle
-cross12 = departurePos.CrossProduct(arrivalPos);
-theta = departurePos.VertexAngle(arrivalPos);
+	// Call Lambert algorithm
+	// Magnitudes of position vectors
+	varR1 = departurePos.Norm();
+	varR2 = arrivalPos.Norm();
 
-// Change initial theta to adjust orbit direction
-If (IsPrograde == 1);
-	If (cross12[2] < 0);
-		theta = 360 - theta;
+	// Calculate cross product to determine orbit direction and calculate transfer angle
+	cross12 = departurePos.CrossProduct(arrivalPos);
+	theta = departurePos.VertexAngle(arrivalPos);
+
+	// Change initial theta to adjust orbit direction
+	If (IsPrograde == 1);
+		If (cross12[2] < 0);
+			theta = 360 - theta;
+		End;
+	ElseIf (IsPrograde == 0);
+		If (cross12[2] >= 0);
+			theta = 360 - theta;
+		End;
 	End;
-ElseIf (IsPrograde == 0);
-	If (cross12[2] >= 0);
-		theta = 360 - theta;
+
+	Const = sin(rad(theta))*sqrt(varR1*varR2/(1 - cos(rad(theta))));
+	fOut = -1;
+
+	ratio = 1;
+	z = -50;
+	// Determine when the F-function crosses 0 to determine an initial z value for easier convergence 
+	While (fOut < 0);
+
+		Call Ffunc(z, TOF, fOut);
+
+		// Errors encountered are due to imaginary numbers in the F-function solution.
+		// Increasing the z value at a faster rate if errors.
+		If (ErrCount > 0);
+			z++;
+			ErrCount = 0;
+		Else;
+			z += 0.1;
+		End;
 	End;
-End;
 
-Const = sin(rad(theta))*sqrt(varR1*varR2/(1 - cos(rad(theta))));
-fOut = -1;
+	// Iterate the F-function using Newtons algorithm to find a solution for Lamberts problem
+	n = 0;
+	While ((abs(ratio) > tol) and (n <= nMax));
 
-ratio = 1;
-z = -50;
-// Determine when the F-function crosses 0 to determine an initial z value for easier convergence 
-While (fOut < 0);
+		Call Ffunc(z, TOF, fOut);
+		Call dFfunc(z, dFOut);
+		ratio = fOut/dFOut;
+		n++;
+		z -= ratio;
 
-	Call Ffunc(z, TOF, fOut);
-
-	// Errors encountered are due to imaginary numbers in the F-function solution.
-	// Increasing the z value at a faster rate if errors.
-	If (ErrCount > 0);
-		z++;
-		ErrCount = 0;
-	Else;
-		z += 0.1;
 	End;
+
+	If (nMax <= n);
+		Console.CurrentTextColor = ColorTools.Red;
+		Report "Maximum number of iterations reached, no solution found. Stopping mission plan." to Console;
+		Stop;
+	End;
+
+	Call Yfunc(z,yOut);
+
+	// Solve the f, g, and gdot functions to determine departure and arrival velocities.
+	f = 1 - yOut/varR1;
+	g = Const*sqrt(yOut/Mu);
+	gdot = 1 - yOut/varR2;
+
+	vDepart = 1/g*(arrivalPos - f*departurePos);
+	vArrival = 1/g*(gdot*arrivalPos - departurePos);
+
+	// Seconds back to days
+	TOF /= 86400;
+
+	//Report @"\nDeparture date: \n  ", Spacecraft1.Epoch.ConvertToCalendarDate() to Console;
+	//Report @"Arrival date: \n  ", (Spacecraft1.Epoch + TimeSpan.FromDays(TOF)).ConvertToCalendarDate() to Console;
+	//Report "Time of flight: ", TOF<8,1>, @" days\n" to Console;
+
+	// Maneuver with Lambert burn (in ICRF, not VNB)
+	deltaV_lambert_Earth = vDepart - Spacecraft1.Velocity;
+	ImpulsiveBurn2.BurnDirection = deltaV_lambert_Earth;
+	Maneuver Spacecraft1 using ImpulsiveBurn2;
+
+	//Report @"Departure delta V: \n  ", deltaV_lambert_Earth to Console;
+
+	Spacecraft1.Color = ColorTools.Green;
+
+	// Step spacecraft. 
+	//Spacecraft1.CentralBody = "Mars";
+	currentEpoch = Spacecraft1.Epoch;
+	While (Spacecraft1.Epoch <= currentEpoch + TimeSpan.FromDays(TOF));
+		Step Spacecraft1;
+		//Update ViewWindow1;
+		//Update ViewWindow2;
+		//Update ViewWindow3;
+		
+		delta_r = Spacecraft1.Position - Spacecraft1.PlanetPosition(Mars.BodyID);
+	End; 
+
+	delta_r_mag = delta_r.Norm();
+	Report @"delta_r: \n  ", delta_r_mag to Console;
+
+	// Reset 
+	Spacecraft1.Position = departurePos;
+	Spacecraft1.Velocity = departureVel;
+	Spacecraft1.Epoch = DepartTime;
+	
+	If (i >= nMax);
+		Console.CurrentTextColor = ColorTools.Red;
+		Report "Maximum number of Lambert targetign iterations reached, no solution found. Stopping mission plan." to Console;
+		Stop;
+	End;
+	
 End;
 
-// Iterate the F-function using Newtons algorithm to find a solution for Lamberts problem
-n = 0;
-While ((abs(ratio) > tol) and (n <= nMax));
+// Restore nominal departure state
+Spacecraft1.CentralBody = "Sun";
+Spacecraft1.Position     = departurePos;
+Spacecraft1.Velocity     = departureVel;
+Spacecraft1.Epoch        = DepartTime;
 
-	Call Ffunc(z, TOF, fOut);
-	Call dFfunc(z, dFOut);
-	ratio = fOut/dFOut;
-	n++;
-	z -= ratio;
-
-End;
-
-If (nMax <= n);
-	Console.CurrentTextColor = ColorTools.Red;
-	Report "Maximum number of iterations reached, no solution found. Stopping mission plan." to Console;
-	Stop;
-End;
-
-Call Yfunc(z,yOut);
-
-// Solve the f, g, and gdot functions to determine departure and arrival velocities.
-f = 1 - yOut/varR1;
-g = Const*sqrt(yOut/Mu);
-gdot = 1 - yOut/varR2;
-
-vDepart = 1/g*(arrivalPos - f*departurePos);
-vArrival = 1/g*(gdot*arrivalPos - departurePos);
-
-// Seconds back to days
-TOF /= 86400;
-
-Report @"\nDeparture date: \n  ", Spacecraft1.Epoch.ConvertToCalendarDate() to Console;
-Report @"Arrival date: \n  ", (Spacecraft1.Epoch + TimeSpan.FromDays(TOF)).ConvertToCalendarDate() to Console;
-Report "Time of flight: ", TOF<8,1>, @" days\n" to Console;
-
-// Maneuver with Lambert burn (in ICRF, not VNB)
-Array deltaV_lambert_Earth = vDepart - Spacecraft1.Velocity;
+// Apply the final Lambert burn using the last vDepart
+deltaV_lambert_Earth = vDepart - Spacecraft1.Velocity;
 ImpulsiveBurn2.BurnDirection = deltaV_lambert_Earth;
 Maneuver Spacecraft1 using ImpulsiveBurn2;
 
-Report @"Departure delta V: \n  ", deltaV_lambert_Earth to Console;
+Report @"Final Departure delta V: \n  ", deltaV_lambert_Earth to Console;
 
-Spacecraft1.Color = ColorTools.Green;
-
-// Step spacecraft. We're going to miss Mars, but that's okay.
-Spacecraft1.CentralBody = "Mars";
-TimeSpan currentEpoch = Spacecraft1.Epoch;
-While (Spacecraft1.Epoch <= currentEpoch + TimeSpan.FromDays(TOF));
-	Step Spacecraft1;
-	Update ViewWindow1;
-	Update ViewWindow2;
-	Update ViewWindow3;
+// Propagate for the final TOF and display trajectory
+TimeSpan currentEpochFinal = Spacecraft1.Epoch;
+While (Spacecraft1.Epoch <= currentEpochFinal + TimeSpan.FromDays(TOF));
+    Step Spacecraft1;
+    Update ViewWindow1;
+    Update ViewWindow2;
+    Update ViewWindow3;
 End;
-]]></FreeFormScript>
+
+Report @"Final state at arrival epoch: \n  Position = ", Spacecraft1.Position,
+       @"\n  Velocity = ", Spacecraft1.Velocity to Console;]]></FreeFormScript>
       </FreeForm>
       <FreeForm enabled="false">
         <Label>MarsCapture</Label>
@@ -2818,7 +2892,7 @@ Spacecraft1.Color = ColorTools.Blue;
     </ProjectCommands>
   </ProjectMissionSequence>
   <ProjectScript><![CDATA[// Set start date for the November 24, 2026 launch window
-TimeSpan start_date = "Nov 24 2026 00:00:00.000".ParseCalendarDate();
+TimeSpan start_date = "Apr 17 2033 00:00:00.000".ParseCalendarDate();
 Spacecraft1.Epoch = start_date;
 
 Mercury.Globe.SurfaceLayer.DaytimeImageFilename = "./Textures/2k_mercury.jpg";
@@ -2891,6 +2965,7 @@ While (Spacecraft1.Radius <= EarthSOI);
 	Update ViewWindow2;
 	Update ViewWindow3;
 End;
+
 
 // Define Globals and Procedures
 
@@ -2989,6 +3064,7 @@ Array arrivalPos[3];
 Array cross12[3];
 Array vDepart[3];
 Array vArrival[3];
+Array deltaV_lambert_Earth;
 
 Variable theta;
 Variable yOut;
@@ -2999,16 +3075,22 @@ Variable n = 0;
 Variable ratio = 1;
 Variable nMax = 5000;///Maximum number of iterations allowed
 Variable tol = 1e-9;///Tolerance used for when solving using Newton's algorithm
+Variable gain;
 
 Variable f;
 Variable g;
 Variable gdot;
-// Solve Lambert's Problem
-TimeSpan DepartTime = Spacecraft1.Epoch;
-Variable TOF = 240 - (DepartTime - start_date).ToDays();
 
-// Convert from days to seconds
-TOF *= 86400;
+Array delta_r = {0.0, 0.0, 0.0};
+Variable delta_r_mag = 100000;
+
+TimeSpan currentEpoch;
+// Solve Lambert's Problem
+
+TimeSpan DepartTime = Spacecraft1.Epoch;
+Variable TOF = 199 - (DepartTime - start_date).ToDays();
+
+
 Spacecraft1.CentralBody = "Sun";
 //Spacecraft1.Epoch = DepartTime.ParseCalendarDate();
 
@@ -3017,110 +3099,171 @@ departurePos = Spacecraft1.Position;
 departureVel = Spacecraft1.Velocity;
 
 // Fast-forward time to Mars arrival time
-Spacecraft1.Epoch += TimeSpan.FromSeconds(TOF);
+Spacecraft1.Epoch += TimeSpan.FromSeconds(TOF*86400);
 
 // Get Mars position in the future, and target a point on its near side
 arrivalPos = Spacecraft1.PlanetPosition(Mars.BodyID);
-Array sunToMarsUnitVector = arrivalPos.Normalized();
-arrivalPos += -10000 * sunToMarsUnitVector;  // 10000 km from Mars on the Sun side
+//Array sunToMarsUnitVector = arrivalPos.Normalized();
+//arrivalPos += -5000000 * sunToMarsUnitVector;  // 10000 km from Mars on the Sun side
+Report @"arrivalPos: \n  ", arrivalPos to Console;
 
 // Reset time
-Spacecraft1.Epoch -= TimeSpan.FromSeconds(TOF);
+Spacecraft1.Epoch -= TimeSpan.FromSeconds(TOF*86400);
+	
+Variable i = 0;
 
-// Call Lambert algorithm
-// Magnitudes of position vectors
-varR1 = departurePos.Norm();
-varR2 = arrivalPos.Norm();
+// Recursively run Lambert targeting until the miss distance is less than 300 km
+While (delta_r_mag > 300);
+	
+	i += 1;
+	Report "RUN #", i to Console;
+	//Report "departurePos = ", Spacecraft1.Position to Console;
+	//Report "departureVel = ", Spacecraft1.Velocity to Console;
+	//Report "DepartTime = ", Spacecraft1.Epoch to Console;
+	
+	Spacecraft1.CentralBody = "Sun";
+	TOF *= 86400;
+	
+	gain = 0.7;
+	arrivalPos -= gain * delta_r;
+	//Report @"arrivalPos: \n  ", arrivalPos to Console;
 
-// Calculate cross product to determine orbit direction and calculate transfer angle
-cross12 = departurePos.CrossProduct(arrivalPos);
-theta = departurePos.VertexAngle(arrivalPos);
+	// Call Lambert algorithm
+	// Magnitudes of position vectors
+	varR1 = departurePos.Norm();
+	varR2 = arrivalPos.Norm();
 
-// Change initial theta to adjust orbit direction
-If (IsPrograde == 1);
-	If (cross12[2] < 0);
-		theta = 360 - theta;
+	// Calculate cross product to determine orbit direction and calculate transfer angle
+	cross12 = departurePos.CrossProduct(arrivalPos);
+	theta = departurePos.VertexAngle(arrivalPos);
+
+	// Change initial theta to adjust orbit direction
+	If (IsPrograde == 1);
+		If (cross12[2] < 0);
+			theta = 360 - theta;
+		End;
+	ElseIf (IsPrograde == 0);
+		If (cross12[2] >= 0);
+			theta = 360 - theta;
+		End;
 	End;
-ElseIf (IsPrograde == 0);
-	If (cross12[2] >= 0);
-		theta = 360 - theta;
+
+	Const = sin(rad(theta))*sqrt(varR1*varR2/(1 - cos(rad(theta))));
+	fOut = -1;
+
+	ratio = 1;
+	z = -50;
+	// Determine when the F-function crosses 0 to determine an initial z value for easier convergence 
+	While (fOut < 0);
+
+		Call Ffunc(z, TOF, fOut);
+
+		// Errors encountered are due to imaginary numbers in the F-function solution.
+		// Increasing the z value at a faster rate if errors.
+		If (ErrCount > 0);
+			z++;
+			ErrCount = 0;
+		Else;
+			z += 0.1;
+		End;
 	End;
-End;
 
-Const = sin(rad(theta))*sqrt(varR1*varR2/(1 - cos(rad(theta))));
-fOut = -1;
+	// Iterate the F-function using Newtons algorithm to find a solution for Lamberts problem
+	n = 0;
+	While ((abs(ratio) > tol) and (n <= nMax));
 
-ratio = 1;
-z = -50;
-// Determine when the F-function crosses 0 to determine an initial z value for easier convergence 
-While (fOut < 0);
+		Call Ffunc(z, TOF, fOut);
+		Call dFfunc(z, dFOut);
+		ratio = fOut/dFOut;
+		n++;
+		z -= ratio;
 
-	Call Ffunc(z, TOF, fOut);
-
-	// Errors encountered are due to imaginary numbers in the F-function solution.
-	// Increasing the z value at a faster rate if errors.
-	If (ErrCount > 0);
-		z++;
-		ErrCount = 0;
-	Else;
-		z += 0.1;
 	End;
+
+	If (nMax <= n);
+		Console.CurrentTextColor = ColorTools.Red;
+		Report "Maximum number of iterations reached, no solution found. Stopping mission plan." to Console;
+		Stop;
+	End;
+
+	Call Yfunc(z,yOut);
+
+	// Solve the f, g, and gdot functions to determine departure and arrival velocities.
+	f = 1 - yOut/varR1;
+	g = Const*sqrt(yOut/Mu);
+	gdot = 1 - yOut/varR2;
+
+	vDepart = 1/g*(arrivalPos - f*departurePos);
+	vArrival = 1/g*(gdot*arrivalPos - departurePos);
+
+	// Seconds back to days
+	TOF /= 86400;
+
+	//Report @"\nDeparture date: \n  ", Spacecraft1.Epoch.ConvertToCalendarDate() to Console;
+	//Report @"Arrival date: \n  ", (Spacecraft1.Epoch + TimeSpan.FromDays(TOF)).ConvertToCalendarDate() to Console;
+	//Report "Time of flight: ", TOF<8,1>, @" days\n" to Console;
+
+	// Maneuver with Lambert burn (in ICRF, not VNB)
+	deltaV_lambert_Earth = vDepart - Spacecraft1.Velocity;
+	ImpulsiveBurn2.BurnDirection = deltaV_lambert_Earth;
+	Maneuver Spacecraft1 using ImpulsiveBurn2;
+
+	//Report @"Departure delta V: \n  ", deltaV_lambert_Earth to Console;
+
+	Spacecraft1.Color = ColorTools.Green;
+
+	// Step spacecraft. 
+	//Spacecraft1.CentralBody = "Mars";
+	currentEpoch = Spacecraft1.Epoch;
+	While (Spacecraft1.Epoch <= currentEpoch + TimeSpan.FromDays(TOF));
+		Step Spacecraft1;
+		//Update ViewWindow1;
+		//Update ViewWindow2;
+		//Update ViewWindow3;
+		
+		delta_r = Spacecraft1.Position - Spacecraft1.PlanetPosition(Mars.BodyID);
+	End; 
+
+	delta_r_mag = delta_r.Norm();
+	Report @"delta_r: \n  ", delta_r_mag to Console;
+
+	// Reset 
+	Spacecraft1.Position = departurePos;
+	Spacecraft1.Velocity = departureVel;
+	Spacecraft1.Epoch = DepartTime;
+	
+	If (i >= nMax);
+		Console.CurrentTextColor = ColorTools.Red;
+		Report "Maximum number of Lambert targetign iterations reached, no solution found. Stopping mission plan." to Console;
+		Stop;
+	End;
+	
 End;
 
-// Iterate the F-function using Newtons algorithm to find a solution for Lamberts problem
-n = 0;
-While ((abs(ratio) > tol) and (n <= nMax));
+// Restore nominal departure state
+Spacecraft1.CentralBody = "Sun";
+Spacecraft1.Position     = departurePos;
+Spacecraft1.Velocity     = departureVel;
+Spacecraft1.Epoch        = DepartTime;
 
-	Call Ffunc(z, TOF, fOut);
-	Call dFfunc(z, dFOut);
-	ratio = fOut/dFOut;
-	n++;
-	z -= ratio;
-
-End;
-
-If (nMax <= n);
-	Console.CurrentTextColor = ColorTools.Red;
-	Report "Maximum number of iterations reached, no solution found. Stopping mission plan." to Console;
-	Stop;
-End;
-
-Call Yfunc(z,yOut);
-
-// Solve the f, g, and gdot functions to determine departure and arrival velocities.
-f = 1 - yOut/varR1;
-g = Const*sqrt(yOut/Mu);
-gdot = 1 - yOut/varR2;
-
-vDepart = 1/g*(arrivalPos - f*departurePos);
-vArrival = 1/g*(gdot*arrivalPos - departurePos);
-
-// Seconds back to days
-TOF /= 86400;
-
-Report @"\nDeparture date: \n  ", Spacecraft1.Epoch.ConvertToCalendarDate() to Console;
-Report @"Arrival date: \n  ", (Spacecraft1.Epoch + TimeSpan.FromDays(TOF)).ConvertToCalendarDate() to Console;
-Report "Time of flight: ", TOF<8,1>, @" days\n" to Console;
-
-// Maneuver with Lambert burn (in ICRF, not VNB)
-Array deltaV_lambert_Earth = vDepart - Spacecraft1.Velocity;
+// Apply the final Lambert burn using the last vDepart
+deltaV_lambert_Earth = vDepart - Spacecraft1.Velocity;
 ImpulsiveBurn2.BurnDirection = deltaV_lambert_Earth;
 Maneuver Spacecraft1 using ImpulsiveBurn2;
 
-Report @"Departure delta V: \n  ", deltaV_lambert_Earth to Console;
+Report @"Final Departure delta V: \n  ", deltaV_lambert_Earth to Console;
 
-Spacecraft1.Color = ColorTools.Green;
-
-// Step spacecraft. We're going to miss Mars, but that's okay.
-Spacecraft1.CentralBody = "Mars";
-TimeSpan currentEpoch = Spacecraft1.Epoch;
-While (Spacecraft1.Epoch <= currentEpoch + TimeSpan.FromDays(TOF));
-	Step Spacecraft1;
-	Update ViewWindow1;
-	Update ViewWindow2;
-	Update ViewWindow3;
+// Propagate for the final TOF and display trajectory
+TimeSpan currentEpochFinal = Spacecraft1.Epoch;
+While (Spacecraft1.Epoch <= currentEpochFinal + TimeSpan.FromDays(TOF));
+    Step Spacecraft1;
+    Update ViewWindow1;
+    Update ViewWindow2;
+    Update ViewWindow3;
 End;
 
+Report @"Final state at arrival epoch: \n  Position = ", Spacecraft1.Position,
+       @"\n  Velocity = ", Spacecraft1.Velocity to Console;
 // // If you miss Mars, this part isn't happening. This script is commented out in the mission plan.
 // 
 // Variable delta_v_Mars_actual = Spacecraft1.Velocity.Norm() - sqrt(Mars.Mu / Spacecraft1.Radius);
