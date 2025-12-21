@@ -435,7 +435,7 @@
         <ElementType>Keplerian</ElementType>
         <OrbitState>
           <Keplerian>
-            <A units="km" displayed_units="km">20000</A>
+            <A units="km" displayed_units="km">8378</A>
             <E units="" displayed_units="">0</E>
             <I units="deg" displayed_units="deg">30</I>
             <RAAN units="deg" displayed_units="deg">0</RAAN>
@@ -696,7 +696,7 @@
                     <SRP>false</SRP>
                     <SRPForceGeometry>0</SRPForceGeometry>
                     <Atmospheric>
-                      <Drag>true</Drag>
+                      <Drag>false</Drag>
                       <AtmosphericDensityModel>1</AtmosphericDensityModel>
                       <SolarFluxFileType>0</SolarFluxFileType>
                       <SolarFluxFilename>DEFAULT</SolarFluxFilename>
@@ -2560,6 +2560,531 @@
         <metadata dim="0" />
       </ImpulsiveBurn>
     </Object>
+    <Object>
+      <ImpulsiveBurn name="ImpulsiveBurn6" isConstant="false" isGlobal="false">
+        <Name>ImpulsiveBurn6</Name>
+        <AttitudeSystem>0</AttitudeSystem>
+        <BurnDirection units="km/s" displayed_units="km/s" dim="3">
+          <value>1</value>
+          <value>0</value>
+          <value>0</value>
+        </BurnDirection>
+        <SpecificImpulse units="s" displayed_units="s">220.0</SpecificImpulse>
+        <ManeuverGravityConstant units="m/s^2" displayed_units="m/s^2">9.81</ManeuverGravityConstant>
+        <ManeuverOffsetTime units="s" displayed_units="s">0.0</ManeuverOffsetTime>
+        <ThrustScaleFactor units="" displayed_units="">1.0</ThrustScaleFactor>
+        <DeltaVOffsetDeltaX units="" displayed_units="">0.0</DeltaVOffsetDeltaX>
+        <DeltaVOffsetDeltaY units="" displayed_units="">0.0</DeltaVOffsetDeltaY>
+        <DeltaVScaleFactor units="" displayed_units="">1.0</DeltaVScaleFactor>
+        <OD>
+          <ImpulsiveBurnODProperties name="ImpulsiveBurn6_|ImpulsiveBurnODProperties|" isConstant="false" isGlobal="false">
+            <Name>ImpulsiveBurn6_|ImpulsiveBurnODProperties|</Name>
+            <DeltaVOffsetDeltaX>
+              <EstimableCoefficient name="ImpulsiveBurn6_|OD_DeltaVOffsetDeltaX|" isConstant="false" isGlobal="false">
+                <Name>ImpulsiveBurn6_|OD_DeltaVOffsetDeltaX|</Name>
+                <ProcessAction>0</ProcessAction>
+                <Sigma units="" displayed_units="">0.05</Sigma>
+                <ProcessNoise units="" displayed_units="">1e-9</ProcessNoise>
+                <ProcessNoiseRate units="1/s" displayed_units="1/s">1e-10</ProcessNoiseRate>
+                <metadata dim="0" />
+              </EstimableCoefficient>
+            </DeltaVOffsetDeltaX>
+            <DeltaVOffsetDeltaY>
+              <EstimableCoefficient name="ImpulsiveBurn6_|OD_DeltaVOffsetDeltaY|" isConstant="false" isGlobal="false">
+                <Name>ImpulsiveBurn6_|OD_DeltaVOffsetDeltaY|</Name>
+                <ProcessAction>0</ProcessAction>
+                <Sigma units="" displayed_units="">0.05</Sigma>
+                <ProcessNoise units="" displayed_units="">1e-9</ProcessNoise>
+                <ProcessNoiseRate units="1/s" displayed_units="1/s">1e-10</ProcessNoiseRate>
+                <metadata dim="0" />
+              </EstimableCoefficient>
+            </DeltaVOffsetDeltaY>
+            <DeltaVScaleFactor>
+              <EstimableCoefficient name="ImpulsiveBurn6_|OD_DeltaVScaleFactor|" isConstant="false" isGlobal="false">
+                <Name>ImpulsiveBurn6_|OD_DeltaVScaleFactor|</Name>
+                <ProcessAction>0</ProcessAction>
+                <Sigma units="" displayed_units="">0.05</Sigma>
+                <ProcessNoise units="" displayed_units="">1e-9</ProcessNoise>
+                <ProcessNoiseRate units="1/s" displayed_units="1/s">1e-10</ProcessNoiseRate>
+                <metadata dim="0" />
+              </EstimableCoefficient>
+            </DeltaVScaleFactor>
+            <metadata dim="0" />
+          </ImpulsiveBurnODProperties>
+        </OD>
+        <metadata dim="0" />
+      </ImpulsiveBurn>
+    </Object>
+    <Object>
+      <ViewWindow name="ViewWindow4" isConstant="false" isGlobal="false">
+        <Name>ViewWindow4</Name>
+        <WindowTitle></WindowTitle>
+        <Viewpoints dim="1">
+          <value>
+            <Viewpoint name="ViewWindow4_Default" isConstant="false" isGlobal="false">
+              <Name>ViewWindow4_Default</Name>
+              <ViewpointName>Default</ViewpointName>
+              <ViewpointType>view</ViewpointType>
+              <ViewpointParameters>
+                <view>
+                  <ThreeDView>
+                    <ThreeDViewpointOptions name="ViewWindow4_Default_|ThreeDView|" isConstant="false" isGlobal="false">
+                      <Name>ViewWindow4_Default_|ThreeDView|</Name>
+                      <Source>Venus</Source>
+                      <Target>Venus</Target>
+                      <TailReference>Venus</TailReference>
+                      <ReferenceFrame>inertial</ReferenceFrame>
+                      <Declination units="deg" displayed_units="deg">20.0</Declination>
+                      <FieldOfView units="deg" displayed_units="deg">45.0</FieldOfView>
+                      <Radius units="km" displayed_units="km">30000.0</Radius>
+                      <RightAscension units="deg" displayed_units="deg">270.0</RightAscension>
+                      <metadata dim="0" />
+                    </ThreeDViewpointOptions>
+                  </ThreeDView>
+                </view>
+              </ViewpointParameters>
+              <metadata dim="0" />
+            </Viewpoint>
+          </value>
+        </Viewpoints>
+        <UseLighting>true</UseLighting>
+        <UseTextures>true</UseTextures>
+        <ShowLogo>true</ShowLogo>
+        <LogoTextureFilename></LogoTextureFilename>
+        <ShowStatusText>true</ShowStatusText>
+        <ShowTextBackdrops>true</ShowTextBackdrops>
+        <AmbientColor>6710886</AmbientColor>
+        <StatusTextColor>16777215</StatusTextColor>
+        <BackgroundColor>0</BackgroundColor>
+        <ObjectShadowing>0</ObjectShadowing>
+        <StatusTextFont>
+          <ViewFont name="ViewWindow4_|StatusTextFont|" isConstant="false" isGlobal="false">
+            <Name>ViewWindow4_|StatusTextFont|</Name>
+            <Bold>false</Bold>
+            <Italic>false</Italic>
+            <Size units="" displayed_units="">0</Size>
+            <Strikeout>false</Strikeout>
+            <Typeface>Tahoma</Typeface>
+            <Underline>false</Underline>
+            <metadata dim="0" />
+          </ViewFont>
+        </StatusTextFont>
+        <DefaultObjectLabelFont>
+          <ViewFont name="ViewWindow4_|DefaultObjectLabelFont|" isConstant="false" isGlobal="false">
+            <Name>ViewWindow4_|DefaultObjectLabelFont|</Name>
+            <Bold>false</Bold>
+            <Italic>false</Italic>
+            <Size units="" displayed_units="">20</Size>
+            <Strikeout>false</Strikeout>
+            <Typeface>Tahoma</Typeface>
+            <Underline>false</Underline>
+            <metadata dim="0" />
+          </ViewFont>
+        </DefaultObjectLabelFont>
+        <Objects dim="13">
+          <value>Mercury</value>
+          <value>Venus</value>
+          <value>Earth</value>
+          <value>Moon</value>
+          <value>Mars</value>
+          <value>Jupiter</value>
+          <value>Saturn</value>
+          <value>Uranus</value>
+          <value>Neptune</value>
+          <value>Pluto</value>
+          <value>Sun</value>
+          <value>Stars</value>
+          <value>Spacecraft1</value>
+        </Objects>
+        <ProjectionHeights units="km" displayed_units="km" dim="13">
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>800</value>
+        </ProjectionHeights>
+        <ShowObject dim="13">
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+        </ShowObject>
+        <ShowBody dim="13">
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+        </ShowBody>
+        <ShowName dim="13">
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>0</value>
+          <value>1</value>
+        </ShowName>
+        <ShowGrid dim="13">
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+        </ShowGrid>
+        <ShowAxes dim="13">
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+        </ShowAxes>
+        <ShowHistory dim="13">
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>1</value>
+        </ShowHistory>
+        <ShowIcon dim="13">
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+        </ShowIcon>
+        <IconImageFilename dim="13">
+          <value></value>
+          <value></value>
+          <value></value>
+          <value></value>
+          <value></value>
+          <value></value>
+          <value></value>
+          <value></value>
+          <value></value>
+          <value></value>
+          <value></value>
+          <value></value>
+          <value></value>
+        </IconImageFilename>
+        <IconSize units="pixel" displayed_units="pixel" dim="13">
+          <value>30.0</value>
+          <value>30.0</value>
+          <value>30.0</value>
+          <value>30.0</value>
+          <value>30.0</value>
+          <value>30.0</value>
+          <value>30.0</value>
+          <value>30.0</value>
+          <value>30.0</value>
+          <value>30.0</value>
+          <value>30.0</value>
+          <value>30.0</value>
+          <value>30</value>
+        </IconSize>
+        <IconDrawingMode dim="13">
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+        </IconDrawingMode>
+        <IconColor dim="13">
+          <value>4294967295</value>
+          <value>4294967295</value>
+          <value>4294967295</value>
+          <value>4294967295</value>
+          <value>4294967295</value>
+          <value>4294967295</value>
+          <value>4294967295</value>
+          <value>4294967295</value>
+          <value>4294967295</value>
+          <value>4294967295</value>
+          <value>4294967295</value>
+          <value>4294967295</value>
+          <value>4294967295</value>
+        </IconColor>
+        <StoreVelocity dim="13">
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+        </StoreVelocity>
+        <AxesScaleMode dim="13">
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+        </AxesScaleMode>
+        <AxesSize units="km" displayed_units="km" dim="13">
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1</value>
+        </AxesSize>
+        <AxesScale units="" displayed_units="" dim="13">
+          <value>1.3</value>
+          <value>1.3</value>
+          <value>1.3</value>
+          <value>1.3</value>
+          <value>1.3</value>
+          <value>1.3</value>
+          <value>1.3</value>
+          <value>1.3</value>
+          <value>1.3</value>
+          <value>1.3</value>
+          <value>1.3</value>
+          <value>1.3</value>
+          <value>1.3</value>
+        </AxesScale>
+        <TailLength units="" displayed_units="" dim="13">
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>100</value>
+        </TailLength>
+        <HistoryMode units="" displayed_units="" dim="13">
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>0</value>
+          <value>1</value>
+        </HistoryMode>
+        <CurrentTailState units="" displayed_units="" dim="13">
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+        </CurrentTailState>
+        <LineWidthUnits units="" displayed_units="" dim="13">
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+          <value>1</value>
+        </LineWidthUnits>
+        <LineWidths units="" displayed_units="" dim="13">
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1.0</value>
+          <value>1</value>
+        </LineWidths>
+        <LabelFonts dim="13">
+          <value xsi:nil="true" />
+          <value xsi:nil="true" />
+          <value xsi:nil="true" />
+          <value xsi:nil="true" />
+          <value xsi:nil="true" />
+          <value xsi:nil="true" />
+          <value xsi:nil="true" />
+          <value xsi:nil="true" />
+          <value xsi:nil="true" />
+          <value xsi:nil="true" />
+          <value xsi:nil="true" />
+          <value xsi:nil="true" />
+          <value xsi:nil="true" />
+        </LabelFonts>
+        <MouseInteractionEnabled>true</MouseInteractionEnabled>
+        <metadata dim="0" />
+      </ViewWindow>
+    </Object>
+    <Object>
+      <ImpulsiveBurn name="ImpulsiveBurn7" isConstant="false" isGlobal="false">
+        <Name>ImpulsiveBurn7</Name>
+        <AttitudeSystem>0</AttitudeSystem>
+        <BurnDirection units="km/s" displayed_units="km/s" dim="3">
+          <value>1</value>
+          <value>0</value>
+          <value>0</value>
+        </BurnDirection>
+        <SpecificImpulse units="s" displayed_units="s">220.0</SpecificImpulse>
+        <ManeuverGravityConstant units="m/s^2" displayed_units="m/s^2">9.81</ManeuverGravityConstant>
+        <ManeuverOffsetTime units="s" displayed_units="s">0.0</ManeuverOffsetTime>
+        <ThrustScaleFactor units="" displayed_units="">1.0</ThrustScaleFactor>
+        <DeltaVOffsetDeltaX units="" displayed_units="">0.0</DeltaVOffsetDeltaX>
+        <DeltaVOffsetDeltaY units="" displayed_units="">0.0</DeltaVOffsetDeltaY>
+        <DeltaVScaleFactor units="" displayed_units="">1.0</DeltaVScaleFactor>
+        <OD>
+          <ImpulsiveBurnODProperties name="ImpulsiveBurn7_|ImpulsiveBurnODProperties|" isConstant="false" isGlobal="false">
+            <Name>ImpulsiveBurn7_|ImpulsiveBurnODProperties|</Name>
+            <DeltaVOffsetDeltaX>
+              <EstimableCoefficient name="ImpulsiveBurn7_|OD_DeltaVOffsetDeltaX|" isConstant="false" isGlobal="false">
+                <Name>ImpulsiveBurn7_|OD_DeltaVOffsetDeltaX|</Name>
+                <ProcessAction>0</ProcessAction>
+                <Sigma units="" displayed_units="">0.05</Sigma>
+                <ProcessNoise units="" displayed_units="">1e-9</ProcessNoise>
+                <ProcessNoiseRate units="1/s" displayed_units="1/s">1e-10</ProcessNoiseRate>
+                <metadata dim="0" />
+              </EstimableCoefficient>
+            </DeltaVOffsetDeltaX>
+            <DeltaVOffsetDeltaY>
+              <EstimableCoefficient name="ImpulsiveBurn7_|OD_DeltaVOffsetDeltaY|" isConstant="false" isGlobal="false">
+                <Name>ImpulsiveBurn7_|OD_DeltaVOffsetDeltaY|</Name>
+                <ProcessAction>0</ProcessAction>
+                <Sigma units="" displayed_units="">0.05</Sigma>
+                <ProcessNoise units="" displayed_units="">1e-9</ProcessNoise>
+                <ProcessNoiseRate units="1/s" displayed_units="1/s">1e-10</ProcessNoiseRate>
+                <metadata dim="0" />
+              </EstimableCoefficient>
+            </DeltaVOffsetDeltaY>
+            <DeltaVScaleFactor>
+              <EstimableCoefficient name="ImpulsiveBurn7_|OD_DeltaVScaleFactor|" isConstant="false" isGlobal="false">
+                <Name>ImpulsiveBurn7_|OD_DeltaVScaleFactor|</Name>
+                <ProcessAction>0</ProcessAction>
+                <Sigma units="" displayed_units="">0.05</Sigma>
+                <ProcessNoise units="" displayed_units="">1e-9</ProcessNoise>
+                <ProcessNoiseRate units="1/s" displayed_units="1/s">1e-10</ProcessNoiseRate>
+                <metadata dim="0" />
+              </EstimableCoefficient>
+            </DeltaVScaleFactor>
+            <metadata dim="0" />
+          </ImpulsiveBurnODProperties>
+        </OD>
+        <metadata dim="0" />
+      </ImpulsiveBurn>
+    </Object>
   </ProjectObjects>
   <ProjectMissionSequence>
     <ProjectExternals />
@@ -2650,6 +3175,7 @@ While (Spacecraft1.Epoch <= startEpoch + TimeSpan.FromMinutes(670));
 	Update ViewWindow1;
 	Update ViewWindow2;
 	Update ViewWindow3;
+	Update ViewWindow4;
 End;
 
 // Burn to leave Earth SOI
@@ -2664,14 +3190,9 @@ While (Spacecraft1.Radius <= EarthSOI);
 	Update ViewWindow1;
 	Update ViewWindow2;
 	Update ViewWindow3;
+	Update ViewWindow4;
 End;
 ]]></FreeFormScript>
-      </FreeForm>
-      <FreeForm enabled="false">
-        <Label>Recursive targeting</Label>
-        <Bookmarks />
-        <Breakpoints />
-        <FreeFormScript><![CDATA[]]></FreeFormScript>
       </FreeForm>
       <FreeForm enabled="true">
         <Label>LambertTargetingProcedures</Label>
@@ -2781,6 +3302,7 @@ Array vDepart[3];
 Array vArrival[3];
 Array deltaV_lambert_Earth;
 Array deltaV_lambert_Mars;
+Array deltaV_lambert_Venus;
 
 Variable theta;
 Variable yOut;
@@ -2801,7 +3323,8 @@ Array targetPos;
 Array delta_r = {0.0, 0.0, 0.0};
 Variable delta_r_mag = 100000;
 
-TimeSpan currentEpoch;]]></FreeFormScript>
+TimeSpan currentEpoch;
+TimeSpan arrivalEpoch;]]></FreeFormScript>
       </FreeForm>
       <FreeForm enabled="true">
         <Label>LambertTargetingSolution</Label>
@@ -2826,7 +3349,7 @@ Spacecraft1.Epoch += TimeSpan.FromSeconds(TOF*86400);
 // Get Mars position in the future, and set target point
 targetPos = Spacecraft1.PlanetPosition(Mars.BodyID);
 Array sunToMarsUnitVector = targetPos.Normalized();
-targetPos += 5000 * sunToMarsUnitVector;  // adjust target to be 5000 km from Mars center
+targetPos += 4900 * sunToMarsUnitVector;  // adjust target to be 5000 km from Mars center
 arrivalPos = targetPos;
 
 //Report @"targetPos: \n  ", targetPos to Console;
@@ -2837,6 +3360,8 @@ Spacecraft1.Epoch -= TimeSpan.FromSeconds(TOF*86400);
 Variable i = 0;
 
 Report @"\nEARTH-MARS RECURSIVE LAMBERT TARGETING" to Console;
+
+delta_r = {0.0, 0.0, 0.0};
 
 // Recursively run Lambert targeting until the miss distance is less than 200 km
 While (delta_r_mag > 200);
@@ -3004,6 +3529,7 @@ While (Spacecraft1.Epoch <= epochAtTOFStart + TimeSpan.FromDays(TOF));
     Update ViewWindow1;
     Update ViewWindow2;
     Update ViewWindow3;
+	Update ViewWindow4;
 
 End;
 
@@ -3085,13 +3611,14 @@ While (Spacecraft1.Epoch <= currentEpoch + TimeSpan.FromDays(0.5));
 	Update ViewWindow1;
 	Update ViewWindow2;
 	Update ViewWindow3;
+	Update ViewWindow4;
 End;
 
 //Report @"Spacecraft eccentricity: ",
 //       Spacecraft1.E.Format("%.6f"), "\n" to Console;
 
 // Compute orbital period around Mars from current altitude
-Variable marsRadius    = Mars.Radius;             // km
+Variable marsRadius    = Mars.RadiusEquatorial;             // km
 Variable altitudeMars  = Spacecraft1.Height;      // km above Mars[web:126]
 Variable a_orbit       = marsRadius + altitudeMars;  // semi-major axis (km)
 Variable periodSeconds = 2.0 * Constants.Pi * sqrt(a_orbit^3 / Mars.Mu);  // s[web:192][web:197]
@@ -3106,7 +3633,11 @@ While (Spacecraft1.Epoch <= currentEpoch + TimeSpan.FromDays(30));
     Update ViewWindow1;
     Update ViewWindow2;
     Update ViewWindow3;
+	Update ViewWindow4;
 End;
+
+Report @"Spacecraft eccentricity: ",
+       Spacecraft1.E.Format("%.6f"), "\n" to Console;
 
 
 
@@ -3126,6 +3657,7 @@ While (Spacecraft1.Epoch <= mars_departure_time);
 	Update ViewWindow1;
 	Update ViewWindow2;
 	Update ViewWindow3;
+	Update ViewWindow4;
 End;
 
 // Calculate delta-v
@@ -3147,6 +3679,7 @@ While (Spacecraft1.Radius <= MarsSOI);
 	Update ViewWindow1;
 	Update ViewWindow2;
 	Update ViewWindow3;
+	Update ViewWindow4;
 End;
 
 //Spacecraft1.Color = ColorTools.Green;
@@ -3169,17 +3702,18 @@ End;
 
 DepartTime = Spacecraft1.Epoch;
 TOF = 150 - (DepartTime - mars_departure_time).ToDays();
-TimeSpan earth_arrival_time = "Dec 08 2034 00:00:00.000".ParseCalendarDate();
+// TimeSpan earth_arrival_time = "Dec 08 2034 00:00:00.000".ParseCalendarDate();
 
 Spacecraft1.CentralBody = "Sun";
 //Spacecraft1.Epoch = DepartTime.ParseCalendarDate();
 
-// Get Earth position
+// Get spacecraft position (departing from Mars' orbit)
 departurePos = Spacecraft1.Position;
 departureVel = Spacecraft1.Velocity;
 
 // Fast-forward time to Venus flyby time
 Spacecraft1.Epoch += TimeSpan.FromSeconds(TOF*86400);
+TimeSpan venus_arrival_time = Spacecraft1.Epoch;
 
 // Get Venus position in the future, and set target point
 targetPos = Spacecraft1.PlanetPosition(Venus.BodyID);
@@ -3338,17 +3872,269 @@ Report @"\nMars-Venus Departure delta V: \n", deltaV_lambert_Mars.Norm(), " km/s
 
 // Propagate until the desired Earth arrival time
 currentEpoch = Spacecraft1.Epoch;
+While (Spacecraft1.Epoch <= venus_arrival_time);
+    Step Spacecraft1; 
+    Update ViewWindow1;
+    Update ViewWindow2;
+    Update ViewWindow3;
+	Update ViewWindow4;
+End;
+]]></FreeFormScript>
+      </FreeForm>
+      <FreeForm enabled="true">
+        <Label>ReachEarth</Label>
+        <Bookmarks />
+        <Breakpoints />
+        <FreeFormScript><![CDATA[// Solve Lambert's Problem
+
+DepartTime = Spacecraft1.Epoch;
+TimeSpan earth_arrival_time = "Dec 08 2034 00:00:00.000".ParseCalendarDate();
+TOF = (earth_arrival_time - DepartTime).ToDays();
+
+Spacecraft1.CentralBody = "Sun";
+//Spacecraft1.Epoch = DepartTime.ParseCalendarDate();
+
+// Get spacecraft position (departing from Venus flyby)
+departurePos = Spacecraft1.Position;
+departureVel = Spacecraft1.Velocity;
+
+// Fast-forward time to Earth Arrival
+Spacecraft1.Epoch += TimeSpan.FromSeconds(TOF*86400);
+
+// Get Earth position in the future, and set target point
+targetPos = Spacecraft1.PlanetPosition(Earth.BodyID);
+targetPos[0] -= (6378 + 2000);
+// Array sunToEarthUnitVector = targetPos.Normalized();
+// targetPos += (6378+2000) * sunToEarthUnitVector; 
+arrivalPos = targetPos;
+
+//Report @"targetPos: \n  ", targetPos to Console;
+
+// Reset time
+Spacecraft1.Epoch -= TimeSpan.FromSeconds(TOF*86400);
+	
+i = 0;
+delta_r_mag = 100000; // Reset to large value
+
+Report @"\nVENUS-EARTH RECURSIVE LAMBERT TARGETING" to Console;
+
+// Recursively run Lambert targeting until the miss distance is less than threshold
+While (delta_r_mag > 100);
+	
+	i += 1;
+
+	//Report "departurePos = ", Spacecraft1.Position to Console;
+	//Report "departureVel = ", Spacecraft1.Velocity to Console;
+	//Report "DepartTime = ", Spacecraft1.Epoch to Console;
+	
+	Spacecraft1.CentralBody = "Sun";
+	TOF *= 86400;
+	
+	// UPDATE TARGET POSITION (arrivalPos)
+	gain = 0.75; // can adjust gain to prevent overcorrections to the target position
+	arrivalPos -= gain * delta_r;
+	//Report @"arrivalPos: \n  ", arrivalPos to Console;
+
+	// Call Lambert algorithm
+	// Magnitudes of position vectors
+	varR1 = departurePos.Norm();
+	varR2 = arrivalPos.Norm();
+
+	// Calculate cross product to determine orbit direction and calculate transfer angle
+	cross12 = departurePos.CrossProduct(arrivalPos);
+	theta = departurePos.VertexAngle(arrivalPos);
+
+	// Change initial theta to adjust orbit direction
+	If (IsPrograde == 1);
+		If (cross12[2] < 0);
+			theta = 360 - theta;
+		End;
+	ElseIf (IsPrograde == 0);
+		If (cross12[2] >= 0);
+			theta = 360 - theta;
+		End;
+	End;
+
+	Const = sin(rad(theta))*sqrt(varR1*varR2/(1 - cos(rad(theta))));
+	fOut = -1;
+
+	ratio = 1;
+	z = -50;
+	// Determine when the F-function crosses 0 to determine an initial z value for easier convergence 
+	While (fOut < 0);
+
+		Call Ffunc(z, TOF, fOut);
+
+		// Errors encountered are due to imaginary numbers in the F-function solution.
+		// Increasing the z value at a faster rate if errors.
+		If (ErrCount > 0);
+			z++;
+			ErrCount = 0;
+		Else;
+			z += 0.1;
+		End;
+	End;
+
+	// Iterate the F-function using Newtons algorithm to find a solution for Lamberts problem
+	n = 0;
+	While ((abs(ratio) > tol) and (n <= nMax));
+
+		Call Ffunc(z, TOF, fOut);
+		Call dFfunc(z, dFOut);
+		ratio = fOut/dFOut;
+		n++;
+		z -= ratio;
+
+	End;
+
+	If (nMax <= n);
+		Console.CurrentTextColor = ColorTools.Red;
+		Report "Maximum number of iterations reached, no solution found. Stopping mission plan." to Console;
+		Stop;
+	End;
+
+	Call Yfunc(z,yOut);
+
+	// Solve the f, g, and gdot functions to determine departure and arrival velocities.
+	f = 1 - yOut/varR1;
+	g = Const*sqrt(yOut/Mu);
+	gdot = 1 - yOut/varR2;
+
+	vDepart = 1/g*(arrivalPos - f*departurePos);
+	vArrival = 1/g*(gdot*arrivalPos - departurePos);
+
+	// Seconds back to days
+	TOF /= 86400;
+
+	//Report @"\nDeparture date: \n  ", Spacecraft1.Epoch.ConvertToCalendarDate() to Console;
+	//Report @"Arrival date: \n  ", (Spacecraft1.Epoch + TimeSpan.FromDays(TOF)).ConvertToCalendarDate() to Console;
+	//Report "Time of flight: ", TOF<8,1>, @" days\n" to Console;
+
+	// Maneuver with Lambert burn (in ICRF, not VNB)
+	deltaV_lambert_Venus = vDepart - Spacecraft1.Velocity;
+	ImpulsiveBurn6.BurnDirection = deltaV_lambert_Venus;
+	Maneuver Spacecraft1 using ImpulsiveBurn6;
+
+	//Report @"Departure delta V: \n  ", deltaV_lambert_Venus to Console;
+
+	// Step spacecraft. 
+	//Spacecraft1.CentralBody = "Mars";
+	currentEpoch = Spacecraft1.Epoch;
+	While (Spacecraft1.Epoch <= currentEpoch + TimeSpan.FromDays(TOF));
+		Step Spacecraft1;
+		//Update ViewWindow1;
+		//Update ViewWindow2;
+		//Update ViewWindow3;
+		
+		delta_r = Spacecraft1.Position - targetPos;
+	End; 
+
+	delta_r_mag = delta_r.Norm();
+	Report @"RUN #", i.Format("%.0f"), " | delta_r: ", delta_r_mag.Format("%.2f"), " km" to Console;
+
+	// Reset 
+	Spacecraft1.Position = departurePos;
+	Spacecraft1.Velocity = departureVel;
+	Spacecraft1.Epoch = DepartTime;
+	
+	If (i >= nMax);
+		Console.CurrentTextColor = ColorTools.Red;
+		Report "Maximum number of Lambert targetign iterations reached, no solution found. Stopping mission plan." to Console;
+		Stop;
+	End;
+	
+End;
+
+// Propagate and visualize the final trajectory
+
+Spacecraft1.Color = ColorTools.Green;
+
+// Apply the Mars-Venus burn using the last vDepart
+deltaV_lambert_Venus = vDepart - Spacecraft1.Velocity;
+ImpulsiveBurn6.BurnDirection = deltaV_lambert_Venus;
+Maneuver Spacecraft1 using ImpulsiveBurn6;
+
+Report @"\nVenus-Earth Departure delta V: \n", deltaV_lambert_Venus.Norm(), " km/s" to Console;
+
+// Propagate until the desired Earth arrival time
+currentEpoch = Spacecraft1.Epoch;
 While (Spacecraft1.Epoch <= earth_arrival_time);
     Step Spacecraft1; 
     Update ViewWindow1;
     Update ViewWindow2;
     Update ViewWindow3;
+	Update ViewWindow4;
 End;
 
 // Calculate and display miss distance from Earth
 Array earth_miss = Spacecraft1.Position - Spacecraft1.PlanetPosition(Earth.BodyID);
 Report @"Earth miss distance: \n", earth_miss.Norm(), " km" to Console;
 //Report @"Earth miss vector: \n", earth_miss to Console;]]></FreeFormScript>
+      </FreeForm>
+      <FreeForm enabled="true">
+        <Label>FinalEarthOrbit</Label>
+        <Bookmarks />
+        <Breakpoints />
+        <FreeFormScript><![CDATA[// Earth-centered frame
+Spacecraft1.CentralBody = "Earth";
+
+rVec = Spacecraft1.Position;
+vVec = Spacecraft1.Velocity;
+
+// Radius and circular speed
+r_mag  = sqrt(rVec.DotProduct(rVec));
+v_circ = sqrt(Earth.Mu / r_mag);
+
+// Unit radial r̂ = r / |r|
+rHat = rVec / r_mag;
+
+// Tangential direction: remove radial component from v, then normalize
+v_dot_rhat = vVec.DotProduct(rHat);
+vTan = vVec - v_dot_rhat * rHat;
+
+vt_mag = sqrt(vTan.DotProduct(vTan));
+
+tHat = vTan / vt_mag;
+
+// Desired circular velocity vector: v_circ * t̂
+vCircVec = v_circ * tHat;
+
+// Delta-v in inertial frame: Δv = v_circ_vec − v
+dv = vCircVec - vVec;
+
+// Magnitude for reporting
+Variable delta_v_Earth_actual = sqrt(dv.DotProduct(dv));
+
+// Apply burn (assumes BurnDirection frame matches Spacecraft1.Velocity)
+ImpulsiveBurn7.BurnDirection[0] = dv[0];
+ImpulsiveBurn7.BurnDirection[1] = dv[1];
+ImpulsiveBurn7.BurnDirection[2] = dv[2];
+
+Report @"Earth capture delta V: \n  ",
+       delta_v_Earth_actual.Format("%.3f"), " km/s" to Console;
+
+Maneuver Spacecraft1 using ImpulsiveBurn7;
+
+// Altitude above Earth's surface (km)
+Variable earthsAltitude = Spacecraft1.Height;
+Report @"Circularized to Earth orbit of ",
+       earthsAltitude.Format("%.3f"), " km" to Console;
+       
+Spacecraft1.Color = ColorTools.Blue;
+
+// Propogate half a day at high fidelity (small time step)
+currentEpoch = Spacecraft1.Epoch;
+While (Spacecraft1.Epoch <= currentEpoch + TimeSpan.FromDays(1));
+	Step Spacecraft1;
+	Update ViewWindow1;
+	Update ViewWindow2;
+	Update ViewWindow3;
+	Update ViewWindow4;
+End;
+
+Report @"Spacecraft eccentricity: ",
+       Spacecraft1.E.Format("%.6f"), "\n" to Console;
+]]></FreeFormScript>
       </FreeForm>
     </ProjectCommands>
   </ProjectMissionSequence>
@@ -3424,6 +4210,7 @@ While (Spacecraft1.Epoch <= startEpoch + TimeSpan.FromMinutes(670));
 	Update ViewWindow1;
 	Update ViewWindow2;
 	Update ViewWindow3;
+	Update ViewWindow4;
 End;
 
 // Burn to leave Earth SOI
@@ -3438,9 +4225,9 @@ While (Spacecraft1.Radius <= EarthSOI);
 	Update ViewWindow1;
 	Update ViewWindow2;
 	Update ViewWindow3;
+	Update ViewWindow4;
 End;
 
-// 
 // Define Globals and Procedures
 
 Global Variable varR1;///Departure position magnitude
@@ -3540,6 +4327,7 @@ Array vDepart[3];
 Array vArrival[3];
 Array deltaV_lambert_Earth;
 Array deltaV_lambert_Mars;
+Array deltaV_lambert_Venus;
 
 Variable theta;
 Variable yOut;
@@ -3561,6 +4349,7 @@ Array delta_r = {0.0, 0.0, 0.0};
 Variable delta_r_mag = 100000;
 
 TimeSpan currentEpoch;
+TimeSpan arrivalEpoch;
 // Solve Lambert's Problem
 
 TimeSpan DepartTime = Spacecraft1.Epoch;
@@ -3580,7 +4369,7 @@ Spacecraft1.Epoch += TimeSpan.FromSeconds(TOF*86400);
 // Get Mars position in the future, and set target point
 targetPos = Spacecraft1.PlanetPosition(Mars.BodyID);
 Array sunToMarsUnitVector = targetPos.Normalized();
-targetPos += 5000 * sunToMarsUnitVector;  // adjust target to be 5000 km from Mars center
+targetPos += 4900 * sunToMarsUnitVector;  // adjust target to be 5000 km from Mars center
 arrivalPos = targetPos;
 
 //Report @"targetPos: \n  ", targetPos to Console;
@@ -3591,6 +4380,8 @@ Spacecraft1.Epoch -= TimeSpan.FromSeconds(TOF*86400);
 Variable i = 0;
 
 Report @"\nEARTH-MARS RECURSIVE LAMBERT TARGETING" to Console;
+
+delta_r = {0.0, 0.0, 0.0};
 
 // Recursively run Lambert targeting until the miss distance is less than 200 km
 While (delta_r_mag > 200);
@@ -3758,6 +4549,7 @@ While (Spacecraft1.Epoch <= epochAtTOFStart + TimeSpan.FromDays(TOF));
     Update ViewWindow1;
     Update ViewWindow2;
     Update ViewWindow3;
+	Update ViewWindow4;
 
 End;
 
@@ -3834,13 +4626,14 @@ While (Spacecraft1.Epoch <= currentEpoch + TimeSpan.FromDays(0.5));
 	Update ViewWindow1;
 	Update ViewWindow2;
 	Update ViewWindow3;
+	Update ViewWindow4;
 End;
 
 //Report @"Spacecraft eccentricity: ",
 //       Spacecraft1.E.Format("%.6f"), "\n" to Console;
 
 // Compute orbital period around Mars from current altitude
-Variable marsRadius    = Mars.Radius;             // km
+Variable marsRadius    = Mars.RadiusEquatorial;             // km
 Variable altitudeMars  = Spacecraft1.Height;      // km above Mars[web:126]
 Variable a_orbit       = marsRadius + altitudeMars;  // semi-major axis (km)
 Variable periodSeconds = 2.0 * Constants.Pi * sqrt(a_orbit^3 / Mars.Mu);  // s[web:192][web:197]
@@ -3855,7 +4648,11 @@ While (Spacecraft1.Epoch <= currentEpoch + TimeSpan.FromDays(30));
     Update ViewWindow1;
     Update ViewWindow2;
     Update ViewWindow3;
+	Update ViewWindow4;
 End;
+
+Report @"Spacecraft eccentricity: ",
+       Spacecraft1.E.Format("%.6f"), "\n" to Console;
 
 
 
@@ -3870,6 +4667,7 @@ While (Spacecraft1.Epoch <= mars_departure_time);
 	Update ViewWindow1;
 	Update ViewWindow2;
 	Update ViewWindow3;
+	Update ViewWindow4;
 End;
 
 // Calculate delta-v
@@ -3891,6 +4689,7 @@ While (Spacecraft1.Radius <= MarsSOI);
 	Update ViewWindow1;
 	Update ViewWindow2;
 	Update ViewWindow3;
+	Update ViewWindow4;
 End;
 
 //Spacecraft1.Color = ColorTools.Green;
@@ -3908,17 +4707,18 @@ End;
 
 DepartTime = Spacecraft1.Epoch;
 TOF = 150 - (DepartTime - mars_departure_time).ToDays();
-TimeSpan earth_arrival_time = "Dec 08 2034 00:00:00.000".ParseCalendarDate();
+// TimeSpan earth_arrival_time = "Dec 08 2034 00:00:00.000".ParseCalendarDate();
 
 Spacecraft1.CentralBody = "Sun";
 //Spacecraft1.Epoch = DepartTime.ParseCalendarDate();
 
-// Get Earth position
+// Get spacecraft position (departing from Mars' orbit)
 departurePos = Spacecraft1.Position;
 departureVel = Spacecraft1.Velocity;
 
 // Fast-forward time to Venus flyby time
 Spacecraft1.Epoch += TimeSpan.FromSeconds(TOF*86400);
+TimeSpan venus_arrival_time = Spacecraft1.Epoch;
 
 // Get Venus position in the future, and set target point
 targetPos = Spacecraft1.PlanetPosition(Venus.BodyID);
@@ -4077,16 +4877,258 @@ Report @"\nMars-Venus Departure delta V: \n", deltaV_lambert_Mars.Norm(), " km/s
 
 // Propagate until the desired Earth arrival time
 currentEpoch = Spacecraft1.Epoch;
+While (Spacecraft1.Epoch <= venus_arrival_time);
+    Step Spacecraft1; 
+    Update ViewWindow1;
+    Update ViewWindow2;
+    Update ViewWindow3;
+	Update ViewWindow4;
+End;
+
+// Solve Lambert's Problem
+
+DepartTime = Spacecraft1.Epoch;
+TimeSpan earth_arrival_time = "Dec 08 2034 00:00:00.000".ParseCalendarDate();
+TOF = (earth_arrival_time - DepartTime).ToDays();
+
+Spacecraft1.CentralBody = "Sun";
+//Spacecraft1.Epoch = DepartTime.ParseCalendarDate();
+
+// Get spacecraft position (departing from Venus flyby)
+departurePos = Spacecraft1.Position;
+departureVel = Spacecraft1.Velocity;
+
+// Fast-forward time to Earth Arrival
+Spacecraft1.Epoch += TimeSpan.FromSeconds(TOF*86400);
+
+// Get Earth position in the future, and set target point
+targetPos = Spacecraft1.PlanetPosition(Earth.BodyID);
+targetPos[0] -= (6378 + 2000);
+// Array sunToEarthUnitVector = targetPos.Normalized();
+// targetPos += (6378+2000) * sunToEarthUnitVector; 
+arrivalPos = targetPos;
+
+//Report @"targetPos: \n  ", targetPos to Console;
+
+// Reset time
+Spacecraft1.Epoch -= TimeSpan.FromSeconds(TOF*86400);
+	
+i = 0;
+delta_r_mag = 100000; // Reset to large value
+
+Report @"\nVENUS-EARTH RECURSIVE LAMBERT TARGETING" to Console;
+
+// Recursively run Lambert targeting until the miss distance is less than threshold
+While (delta_r_mag > 100);
+	
+	i += 1;
+
+	//Report "departurePos = ", Spacecraft1.Position to Console;
+	//Report "departureVel = ", Spacecraft1.Velocity to Console;
+	//Report "DepartTime = ", Spacecraft1.Epoch to Console;
+	
+	Spacecraft1.CentralBody = "Sun";
+	TOF *= 86400;
+	
+	// UPDATE TARGET POSITION (arrivalPos)
+	gain = 0.75; // can adjust gain to prevent overcorrections to the target position
+	arrivalPos -= gain * delta_r;
+	//Report @"arrivalPos: \n  ", arrivalPos to Console;
+
+	// Call Lambert algorithm
+	// Magnitudes of position vectors
+	varR1 = departurePos.Norm();
+	varR2 = arrivalPos.Norm();
+
+	// Calculate cross product to determine orbit direction and calculate transfer angle
+	cross12 = departurePos.CrossProduct(arrivalPos);
+	theta = departurePos.VertexAngle(arrivalPos);
+
+	// Change initial theta to adjust orbit direction
+	If (IsPrograde == 1);
+		If (cross12[2] < 0);
+			theta = 360 - theta;
+		End;
+	ElseIf (IsPrograde == 0);
+		If (cross12[2] >= 0);
+			theta = 360 - theta;
+		End;
+	End;
+
+	Const = sin(rad(theta))*sqrt(varR1*varR2/(1 - cos(rad(theta))));
+	fOut = -1;
+
+	ratio = 1;
+	z = -50;
+	// Determine when the F-function crosses 0 to determine an initial z value for easier convergence 
+	While (fOut < 0);
+
+		Call Ffunc(z, TOF, fOut);
+
+		// Errors encountered are due to imaginary numbers in the F-function solution.
+		// Increasing the z value at a faster rate if errors.
+		If (ErrCount > 0);
+			z++;
+			ErrCount = 0;
+		Else;
+			z += 0.1;
+		End;
+	End;
+
+	// Iterate the F-function using Newtons algorithm to find a solution for Lamberts problem
+	n = 0;
+	While ((abs(ratio) > tol) and (n <= nMax));
+
+		Call Ffunc(z, TOF, fOut);
+		Call dFfunc(z, dFOut);
+		ratio = fOut/dFOut;
+		n++;
+		z -= ratio;
+
+	End;
+
+	If (nMax <= n);
+		Console.CurrentTextColor = ColorTools.Red;
+		Report "Maximum number of iterations reached, no solution found. Stopping mission plan." to Console;
+		Stop;
+	End;
+
+	Call Yfunc(z,yOut);
+
+	// Solve the f, g, and gdot functions to determine departure and arrival velocities.
+	f = 1 - yOut/varR1;
+	g = Const*sqrt(yOut/Mu);
+	gdot = 1 - yOut/varR2;
+
+	vDepart = 1/g*(arrivalPos - f*departurePos);
+	vArrival = 1/g*(gdot*arrivalPos - departurePos);
+
+	// Seconds back to days
+	TOF /= 86400;
+
+	//Report @"\nDeparture date: \n  ", Spacecraft1.Epoch.ConvertToCalendarDate() to Console;
+	//Report @"Arrival date: \n  ", (Spacecraft1.Epoch + TimeSpan.FromDays(TOF)).ConvertToCalendarDate() to Console;
+	//Report "Time of flight: ", TOF<8,1>, @" days\n" to Console;
+
+	// Maneuver with Lambert burn (in ICRF, not VNB)
+	deltaV_lambert_Venus = vDepart - Spacecraft1.Velocity;
+	ImpulsiveBurn6.BurnDirection = deltaV_lambert_Venus;
+	Maneuver Spacecraft1 using ImpulsiveBurn6;
+
+	//Report @"Departure delta V: \n  ", deltaV_lambert_Venus to Console;
+
+	// Step spacecraft. 
+	//Spacecraft1.CentralBody = "Mars";
+	currentEpoch = Spacecraft1.Epoch;
+	While (Spacecraft1.Epoch <= currentEpoch + TimeSpan.FromDays(TOF));
+		Step Spacecraft1;
+		//Update ViewWindow1;
+		//Update ViewWindow2;
+		//Update ViewWindow3;
+		
+		delta_r = Spacecraft1.Position - targetPos;
+	End; 
+
+	delta_r_mag = delta_r.Norm();
+	Report @"RUN #", i.Format("%.0f"), " | delta_r: ", delta_r_mag.Format("%.2f"), " km" to Console;
+
+	// Reset 
+	Spacecraft1.Position = departurePos;
+	Spacecraft1.Velocity = departureVel;
+	Spacecraft1.Epoch = DepartTime;
+	
+	If (i >= nMax);
+		Console.CurrentTextColor = ColorTools.Red;
+		Report "Maximum number of Lambert targetign iterations reached, no solution found. Stopping mission plan." to Console;
+		Stop;
+	End;
+	
+End;
+
+// Propagate and visualize the final trajectory
+
+Spacecraft1.Color = ColorTools.Green;
+
+// Apply the Mars-Venus burn using the last vDepart
+deltaV_lambert_Venus = vDepart - Spacecraft1.Velocity;
+ImpulsiveBurn6.BurnDirection = deltaV_lambert_Venus;
+Maneuver Spacecraft1 using ImpulsiveBurn6;
+
+Report @"\nVenus-Earth Departure delta V: \n", deltaV_lambert_Venus.Norm(), " km/s" to Console;
+
+// Propagate until the desired Earth arrival time
+currentEpoch = Spacecraft1.Epoch;
 While (Spacecraft1.Epoch <= earth_arrival_time);
     Step Spacecraft1; 
     Update ViewWindow1;
     Update ViewWindow2;
     Update ViewWindow3;
+	Update ViewWindow4;
 End;
 
 // Calculate and display miss distance from Earth
 Array earth_miss = Spacecraft1.Position - Spacecraft1.PlanetPosition(Earth.BodyID);
 Report @"Earth miss distance: \n", earth_miss.Norm(), " km" to Console;
-//Report @"Earth miss vector: \n", earth_miss to Console;]]></ProjectScript>
+//Report @"Earth miss vector: \n", earth_miss to Console;
+// Earth-centered frame
+Spacecraft1.CentralBody = "Earth";
+
+rVec = Spacecraft1.Position;
+vVec = Spacecraft1.Velocity;
+
+// Radius and circular speed
+r_mag  = sqrt(rVec.DotProduct(rVec));
+v_circ = sqrt(Earth.Mu / r_mag);
+
+// Unit radial r̂ = r / |r|
+rHat = rVec / r_mag;
+
+// Tangential direction: remove radial component from v, then normalize
+v_dot_rhat = vVec.DotProduct(rHat);
+vTan = vVec - v_dot_rhat * rHat;
+
+vt_mag = sqrt(vTan.DotProduct(vTan));
+
+tHat = vTan / vt_mag;
+
+// Desired circular velocity vector: v_circ * t̂
+vCircVec = v_circ * tHat;
+
+// Delta-v in inertial frame: Δv = v_circ_vec − v
+dv = vCircVec - vVec;
+
+// Magnitude for reporting
+Variable delta_v_Earth_actual = sqrt(dv.DotProduct(dv));
+
+// Apply burn (assumes BurnDirection frame matches Spacecraft1.Velocity)
+ImpulsiveBurn7.BurnDirection[0] = dv[0];
+ImpulsiveBurn7.BurnDirection[1] = dv[1];
+ImpulsiveBurn7.BurnDirection[2] = dv[2];
+
+Report @"Earth capture delta V: \n  ",
+       delta_v_Earth_actual.Format("%.3f"), " km/s" to Console;
+
+Maneuver Spacecraft1 using ImpulsiveBurn7;
+
+// Altitude above Earth's surface (km)
+Variable earthsAltitude = Spacecraft1.Height;
+Report @"Circularized to Earth orbit of ",
+       earthsAltitude.Format("%.3f"), " km" to Console;
+       
+Spacecraft1.Color = ColorTools.Blue;
+
+// Propogate half a day at high fidelity (small time step)
+currentEpoch = Spacecraft1.Epoch;
+While (Spacecraft1.Epoch <= currentEpoch + TimeSpan.FromDays(1));
+	Step Spacecraft1;
+	Update ViewWindow1;
+	Update ViewWindow2;
+	Update ViewWindow3;
+	Update ViewWindow4;
+End;
+
+Report @"Spacecraft eccentricity: ",
+       Spacecraft1.E.Format("%.6f"), "\n" to Console;
+]]></ProjectScript>
   <ProjectNotes></ProjectNotes>
 </FreeFlyerProjectFile>
